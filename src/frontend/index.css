@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('/assets/fonts/BricolageGrotesque.woff2') format('woff2');
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/assets/fonts/Satoshi.woff2') format('woff2');
+  font-weight: 300 700;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+    --background: 0.1 0.022 272;
+    --foreground: 0.94 0.012 275;
+    --card: 0.14 0.028 275;
+    --card-foreground: 0.94 0.012 275;
+    --popover: 0.16 0.03 275;
+    --popover-foreground: 0.94 0.012 275;
+    --primary: 0.65 0.28 285;
+    --primary-foreground: 0.98 0 0;
+    --secondary: 0.18 0.04 275;
+    --secondary-foreground: 0.88 0.015 275;
+    --muted: 0.18 0.03 275;
+    --muted-foreground: 0.55 0.04 275;
+    --accent: 0.72 0.18 198;
+    --accent-foreground: 0.1 0.02 272;
+    --destructive: 0.63 0.24 25;
+    --destructive-foreground: 0.98 0 0;
+    --border: 0.26 0.04 275;
+    --input: 0.22 0.04 275;
+    --ring: 0.65 0.28 285;
+    --chart-1: 0.65 0.28 285;
+    --chart-2: 0.72 0.18 198;
+    --chart-3: 0.72 0.17 155;
+    --chart-4: 0.78 0.18 80;
+    --chart-5: 0.63 0.24 25;
+    --sidebar: 0.12 0.025 275;
+    --sidebar-foreground: 0.94 0.012 275;
+    --sidebar-primary: 0.65 0.28 285;
+    --sidebar-primary-foreground: 0.98 0 0;
+    --sidebar-accent: 0.18 0.04 275;
+    --sidebar-accent-foreground: 0.88 0.015 275;
+    --sidebar-border: 0.26 0.04 275;
+    --sidebar-ring: 0.65 0.28 285;
+
+    /* Custom tokens */
+    --glow-purple: oklch(0.65 0.28 285 / 0.4);
+    --glow-cyan: oklch(0.72 0.18 198 / 0.4);
+    --glow-emerald: oklch(0.72 0.17 155 / 0.3);
+    --glow-amber: oklch(0.78 0.18 80 / 0.3);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Satoshi', 'Plus Jakarta Sans', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+  }
+}
+
+@layer utilities {
+  .gradient-text {
+    background: linear-gradient(135deg, oklch(0.72 0.22 198), oklch(0.65 0.28 285), oklch(0.78 0.2 310));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-emerald {
+    background: linear-gradient(135deg, oklch(0.72 0.17 155), oklch(0.72 0.18 198));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-amber {
+    background: linear-gradient(135deg, oklch(0.78 0.18 80), oklch(0.72 0.2 50));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass-card {
+    background: oklch(0.14 0.028 275 / 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid oklch(0.65 0.28 285 / 0.2);
+  }
+
+  .glass-card-cyan {
+    background: oklch(0.14 0.028 275 / 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid oklch(0.72 0.18 198 / 0.25);
+  }
+
+  .glass-card-emerald {
+    background: oklch(0.12 0.025 155 / 0.5);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid oklch(0.72 0.17 155 / 0.3);
+  }
+
+  .glass-card-amber {
+    background: oklch(0.13 0.025 80 / 0.5);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid oklch(0.78 0.18 80 / 0.3);
+  }
+
+  .glow-button {
+    box-shadow: 0 0 20px var(--glow-purple), 0 0 40px var(--glow-purple);
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+  }
+
+  .glow-button:hover {
+    box-shadow: 0 0 30px var(--glow-purple), 0 0 60px var(--glow-purple), 0 0 80px var(--glow-purple);
+    transform: translateY(-2px);
+  }
+
+  .shimmer-button {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, oklch(1 0 0 / 0.15) 50%, transparent 100%);
+    animation: shimmer 2.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(50%); }
+  }
+
+  .float-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .pulse-glow {
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+
+  .count-up {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .mesh-gradient {
+    background:
+      radial-gradient(ellipse at 20% 50%, oklch(0.65 0.28 285 / 0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, oklch(0.72 0.18 198 / 0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, oklch(0.72 0.17 155 / 0.08) 0%, transparent 50%),
+      oklch(0.1 0.022 272);
+  }
+}
